@@ -8,13 +8,13 @@ import Iframe from 'app/views/pages/Iframe';
 
 // Path matching rules: https://github.com/pillarjs/path-to-regexp
 const routes = [
-  Route('/one/:thing?', PageAction(One)),
-  Route('/two', PageAction(Two)),
-  Route('/load/foo', PageAction(Load)),
-  Route('/load/:q?', PageAction(Load)),
-  Route('/prefetch', PageAction(Prefetch)),
-  Route('/iframe', PageAction(Iframe)),
-  Route('(.*)', PageAction(NotFound404))
+  Route(`/one/:thing?`, PageAction(One), 'oneThing'),
+  Route(`/two`, PageAction(Two), 'two'),
+  Route(`/load/foo`, PageAction(Load), 'loadFoo'),
+  Route(`/load/:q?`, PageAction(Load), 'load'),
+  Route(`/prefetch`, PageAction(Prefetch), 'prefetch'),
+  Route(`/iframe`, PageAction(Iframe), 'iframe'),
+  Route(`(.*)`, PageAction(NotFound404), 'fourOhFour')
 ];
 
 export default routes;

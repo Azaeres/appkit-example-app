@@ -5,7 +5,7 @@ import testModel from 'app/models/testModel';
 import {
   stateMachine as objectStateMachine,
   toggleSelector,
-  counterSelector
+  counterSelector,
 } from 'app/models/ObjectExample';
 import Store from 'models/Store';
 import { hot } from 'react-hot-loader';
@@ -17,11 +17,7 @@ import Navigation from 'app/views/shared/Navigation';
 const { stateMachine, exampleSelector } = testModel;
 
 export const testStore = Store(stateMachine, undefined, 'testStore');
-export const objectStore = Store(
-  objectStateMachine,
-  localForageDriver,
-  'objectStore'
-);
+export const objectStore = Store(objectStateMachine, localForageDriver, 'objectStore');
 
 /*
 
@@ -42,7 +38,7 @@ function One({
   advance,
   objectStore: { toggleValue, counterValue },
   toggle,
-  incrementCounter
+  incrementCounter,
 }) {
   // console.log('> One : toggleValue', toggleValue);
   return (
@@ -75,7 +71,7 @@ export default compose(
       return {
         toggleValue: toggleSelector(value),
         // 5. value -> view render
-        counterValue: counterSelector(value)
+        counterValue: counterSelector(value),
       };
     },
     'objectStore'
@@ -90,7 +86,7 @@ export default compose(
     incrementCounter: props => event => {
       // 2. view event -> dispatcher
       objectStore.incrementCounter();
-    }
+    },
   }),
   pure
 )(One);

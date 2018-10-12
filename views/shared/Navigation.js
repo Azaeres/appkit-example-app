@@ -1,13 +1,15 @@
 import React from 'react';
 import { compose, withHandlers, pure, withState, lifecycle } from 'recompose';
 import screenfull from 'screenfull';
+import generateUrls from 'universal-router/generateUrls';
 
 function Navigation({
-  routerContext: { path },
+  routerContext: { path, router },
   enableFullscreen,
   isFullscreen,
   disableFullscreen
 }) {
+  const Url = generateUrls(router);
   return (
     <div>
       <hr />
@@ -18,26 +20,20 @@ function Navigation({
       />
       <br />
       <br />
-      <NavigationItem path="/one" text="One" currentPath={path} />
-      <NavigationItem path="/two" text="Two" currentPath={path} />
-      <NavigationItem path="/load" text="Load" currentPath={path} />
-      <NavigationItem path="/prefetch" text="Prefetch" currentPath={path} />
-      <NavigationItem path="/iframe" text="iFrame" currentPath={path} />
+      <NavigationItem path={Url('oneThing')} text="One" currentPath={path} />
+      <NavigationItem path={Url('two')} text="Two" currentPath={path} />
+      <NavigationItem path={Url('load')} text="Load" currentPath={path} />
+      <NavigationItem path={Url('prefetch')} text="Prefetch" currentPath={path} />
+      <NavigationItem path={Url('iframe')} text="iFrame" currentPath={path} />
       <hr />
     </div>
   );
 }
 
-function FullscreenButton({
-  enableFullscreen,
-  isFullscreen,
-  disableFullscreen
-}) {
+function FullscreenButton({ enableFullscreen, isFullscreen, disableFullscreen }) {
   if (screenfull) {
     if (isFullscreen) {
-      return (
-        <button onClick={disableFullscreen}>Disable Fullscreen Mode</button>
-      );
+      return <button onClick={disableFullscreen}>Disable Fullscreen Mode</button>;
     } else {
       return <button onClick={enableFullscreen}>Enable Fullscreen Mode</button>;
     }
@@ -52,7 +48,7 @@ function NavigationItem({ path, text, currentPath }) {
   } else {
     return (
       <div>
-        <a href={`/#${path}`}>{text}</a>
+        <a href={`${path}`}>{text}</a>
       </div>
     );
   }
